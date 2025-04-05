@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Page2 from './Page2';
+import Destinations from './Destinations';
+import ReviewComponent from './ReviewComponent';
 
 function HomePage() {
   // Multi-step state: 1 for first form, 2 for additional options, 3 for showing tourist places
@@ -470,6 +472,8 @@ function HomePage() {
         )}
       </div>
       <Page2 />
+      <Destinations />
+      <ReviewComponent />
     </>
   );
 }
