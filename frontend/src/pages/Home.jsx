@@ -252,7 +252,16 @@ function HomePage() {
           className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
           style={{ backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1050 }}
         >
-          <div className="bg-white p-4 rounded shadow" style={{ maxWidth: '500px', width: '90%' }}>
+          {/* Modal content container with relative positioning */}
+          <div className="bg-white p-4 rounded shadow" style={{ maxWidth: '500px', width: '90%', position: 'relative' }}>
+            {/* Close button at top right */}
+            <button
+              type="button"
+              className="btn-close position-absolute"
+              style={{ top: '10px', right: '10px' }}
+              onClick={togglePopup}
+              aria-label="Close"
+            ></button>
             {formStep === 1 && (
               <form onSubmit={handleFirstStepSubmit}>
                 <h3 className="mb-4">Get Your Free Travel Plan Now!</h3>

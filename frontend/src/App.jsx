@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import AdminDashboard from "./pages/AdminDashboard";
-import UserDashboard from "./pages/UserDashboard";
 import HomePage from "./pages/Home";
 
 const App = () => {
@@ -15,8 +13,6 @@ const App = () => {
         {/* Define your actual routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/user-dashboard" element={<UserDashboard />} />
         <Route path ="/Home" element={<HomePage />}>
         </Route>
 

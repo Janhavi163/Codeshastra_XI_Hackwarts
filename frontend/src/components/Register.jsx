@@ -8,8 +8,7 @@ const Register = () => {
 
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
-    role: "user", // default role
+    password: ""
   });
 
   const handleChange = (e) => {
@@ -46,11 +45,6 @@ const Register = () => {
           onChange={handleChange}
           required
         />
-        <br />
-        <select name="role" onChange={handleChange}>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
         <br />
         <button type="submit">Register</button>
       </form>

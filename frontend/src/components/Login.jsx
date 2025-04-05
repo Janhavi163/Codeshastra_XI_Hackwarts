@@ -15,17 +15,11 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5001/login", loginData); // ✅ Make sure port matches backend
-      const { token, role } = res.data;
+      const { token } = res.data;
 
       localStorage.setItem("token", token);
-      localStorage.setItem("role", role);
 
-      // ✅ Navigate based on role
-      if (role === "admin") {
-        navigate("/admin-dashboard");
-      } else {
-        navigate("/user-dashboard");
-      }
+      navigate("/Home");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
