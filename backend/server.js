@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
+const tripRoutes = require('./routes/tripRoutes');
 
 const app = express();
 app.use(express.json());
@@ -26,6 +27,8 @@ app.use("/", authRoutes);
 app.get("/sample", (req, res) => {
   res.send({ message: "msg" });
 });
+
+app.use('/api/trip', tripRoutes);
 
 // ✅ Start Server
 const PORT = process.env.PORT || 5000;
