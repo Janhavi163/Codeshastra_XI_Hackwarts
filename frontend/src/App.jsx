@@ -2,21 +2,23 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Register from "./components/Register";
 import Login from "./components/Login";
 import HomePage from "./pages/Home";
+import Chat from "./pages/Chat"; // ✅ Add this
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Redirect "/" to "/login" or another default page */}
         <Route path="/" element={<Navigate to="/register" />} />
-
-        {/* Define your actual routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path ="/Home" element={<HomePage />}>
-        </Route>
 
-        {/* Catch-all for undefined routes (optional) */}
+        {/* ✅ HomePage route */}
+        <Route path="/Home" element={<HomePage />} />
+
+        {/* ✅ Chat route - make sure this is NOT nested */}
+        <Route path="/team-chat" element={<Chat />} />
+
+        {/* 404 Route */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </Router>

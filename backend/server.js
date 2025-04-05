@@ -24,7 +24,21 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .then(() => console.log("✅ MongoDB Connected..."))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
+  const User = require("./models/User"); // adjust path if needed
 
+  app.post("/api/validate-user", async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      const user = await User.findOne({ email });
+      if (!user) return res.status(404).json({ valid: false, message: "User not found" });
+  
+      res.json({ valid: true, name: user.name });
+    } catch (err) {
+      res.status(500).json({ valid: false, message: "Server error" });
+    }
+  });
+  
   
 // ✅ API Routes
 app.use("/", authRoutes);
@@ -69,6 +83,52 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// ✅ Start Server
+
+const http = require("http");
+const { Server } = require("socket.io");
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+// Socket.IO logic
+io.on("connection", (socket) => {
+  console.log("✅ New client connected");
+
+  socket.on("join-room", ({ email, teamCode }) => {
+    console.log(`${email} is joining ${teamCode}`);
+    socket.join(teamCode);
+
+    io.to(teamCode).emit("message", {
+      sender: "System",
+      text: `${email} joined the chat.`,
+    });
+  });
+
+  socket.on("chat-message", ({ room, sender, text }) => {
+    io.to(room).emit("message", { sender, text });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("❌ A user disconnected");
+  });
+});
+
+// ✅ Replace this line:
+// app.listen(PORT, () => console.log(...))
+// 🔁 With this:
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+
+
+
+
+// ✅ Start Server
+// const PORT = process.env.PORT || 5000;
+// app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
