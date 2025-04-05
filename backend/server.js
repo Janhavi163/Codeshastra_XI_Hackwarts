@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const axios = require('axios');
 const cors = require("cors");
 require("dotenv").config();
 
@@ -39,6 +40,34 @@ app.use('/api', submissionRoutes);
 const placesRoutes = require('./routes/placesRoutes');
 app.use('/api', placesRoutes);
 
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+app.post('/api/chat', async (req, res) => {
+  const userMessage = req.body.message;
+
+  try {
+    const response = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-002:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        contents: [{ parts: [{ text: userMessage }] }],
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const botReply = response.data.candidates?.[0]?.content?.parts?.[0]?.text;
+    res.json({ reply: botReply || "No reply generated." });
+  } catch (error) {
+    console.error("Gemini API Error:", error.response?.data || error.message);
+    res.status(500).json({
+      error: "Gemini API failed",
+      details: error.response?.data || error.message,
+    });
+  }
+});
 
 // ✅ Start Server
 const PORT = process.env.PORT || 5000;
