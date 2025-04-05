@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Page2 from './Page2';
+import Destinations from './Destinations';
+import ReviewComponent from './ReviewComponent';
+import Chatbot from '../components/Chatbot';
 
 function HomePage() {
+  const navigate = useNavigate();
   // Multi-step state: 1 for first form, 2 for additional options, 3 for showing tourist places
   const [formStep, setFormStep] = useState(1);
 
@@ -342,8 +347,30 @@ function HomePage() {
                 </div>
 
               )}
+        {/* Floating Button for Chat */}
+      <button
+        className="chat-toggle-button"
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "180px",
+          padding: "12px 20px",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          zIndex: 1000,
+        }}
+        onClick={() => navigate("/team-chat")}
+      >
+        Chat with Friends
+      </button>
       </div>
       <Page2 />
+      <Destinations />
+      <ReviewComponent />
+      <Chatbot />
     </>
   );
 }
