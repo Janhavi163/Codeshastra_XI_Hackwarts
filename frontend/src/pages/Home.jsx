@@ -26,7 +26,7 @@ function HomePage() {
   const fetchCities = async (query) => {
     try {
       const response = await fetch(
-        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${query}&limit=5`,
+        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${query}&limit=10`,
         {
           method: 'GET',
           headers: {
@@ -86,16 +86,26 @@ function HomePage() {
     setFormStep(1);
   };
 
-  // Updated final submission:
-  // Uses hardcoded coordinates and calls your proxy endpoint to fetch nearby tourist places.
+  // Final submission:
+  // 1. Geocode the destination to get latitude and longitude.
+  // 2. Use the retrieved coordinates to call your server-side proxy and fetch nearby places.
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Hardcoded coordinates (for example, for Goa)
-      const lat = 15.2993;
-      const lng = 74.123996;
+      // Step 1: Geocode the destination
+      const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(destination)}&key=AIzaSyBhwcZV06UIeDf7qcyhkshqQRDcx3X-vrM`;
+      const geocodeResponse = await fetch(geocodeUrl);
+      if (!geocodeResponse.ok) {
+        throw new Error(`Geocoding error: ${geocodeResponse.statusText}`);
+      }
+      const geocodeData = await geocodeResponse.json();
+      if (geocodeData.results.length === 0) {
+        alert("No coordinates found for the specified destination.");
+        return;
+      }
+      const { lat, lng } = geocodeData.results[0].geometry.location;
       
-      // Call your server-side proxy endpoint
+      // Step 2: Call your server-side proxy endpoint using the retrieved coordinates
       const proxyUrl = `http://localhost:5000/api/places?lat=${lat}&lng=${lng}&radius=1500`;
       const placesResponse = await fetch(proxyUrl);
       if (!placesResponse.ok) {
@@ -103,6 +113,31 @@ function HomePage() {
       }
       const placesData = await placesResponse.json();
       setPlaces(placesData);
+
+      const formData = {
+        from,
+        destination,
+        numPeople,
+        budget,
+        mode,
+        latitude: lat,
+        longitude: lng,
+      };
+  
+      const response = await fetch('http://localhost:5000/api/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error saving data: ${response.statusText}`);
+      }
+  
+      console.log('Form data successfully saved to MongoDB');
+
       setFormStep(3);
     } catch (error) {
       console.error("Error fetching tourist places:", error);
@@ -145,7 +180,7 @@ function HomePage() {
                 <form onSubmit={handleFirstStepSubmit}>
                   <h3 className="mb-4">Get Your Free Travel Plan Now!</h3>
                   <div className="mb-3 position-relative">
-                    <label htmlFor="from" className="form-label">
+                  <label htmlFor="from" className="form-label">
                       Where are you starting from?
                     </label>
                     <input

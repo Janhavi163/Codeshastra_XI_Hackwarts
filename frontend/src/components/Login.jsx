@@ -14,7 +14,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5001/login", loginData); // ✅ Make sure port matches backend
+      const res = await axios.post("http://localhost:5000/login", loginData); // ✅ Make sure port matches backend
       const { token } = res.data;
 
       localStorage.setItem("token", token);
