@@ -86,3 +86,81 @@
     background-color: #0056b3;
   }
   
+  .chat-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chat-toggle-button:hover {
+    background-color: #0072e4;
+  }
+  .chat-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  .chatbot-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    z-index: 1000;
+  }
+  
+  .chatbox {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+  
+  .input-area {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .input-area input {
+    flex: 1;
+    padding: 8px;
+  }
+  
+  .input-area button {
+    padding: 8px 12px;
+  }
+  
+  .message {
+    margin: 6px 0;
+  }
+  
+  .message.user .message-text {
+    text-align: right;
+    color: blue;
+  }
+  
+  .message.bot .message-text {
+    text-align: left;
+    color: green;
+  }
+  

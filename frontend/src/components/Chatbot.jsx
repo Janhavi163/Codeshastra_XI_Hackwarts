@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import "./Chatbot.css"; // Link to external CSS
+import "./Chatbot.css";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [isOpen, setIsOpen] = useState(false); // Toggle state
   const chatEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -25,7 +26,7 @@ const Chatbot = () => {
         message: input,
       });
       const botText = res.data.reply;
-      setMessages([...newMessages, { sender: "You", text: input }, { sender: "Bot", text: botText }]);
+      setMessages([...newMessages, { sender: "Bot", text: botText }]);
     } catch (err) {
       console.error(err);
       setMessages([...newMessages, { sender: "Bot", text: "Oops! Something went wrong." }]);
@@ -33,28 +34,39 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="chatbot-container">
-      <h3>Travel Assistant</h3>
-      <div className="chatbox">
-        {messages.map((msg, i) => (
-          <div key={i} className={`message ${msg.sender === "You" ? "user" : "bot"}`}>
-            <div className="message-text">{msg.text}</div>
+    <>
+      {/* Toggle Button */}
+      <button className="chat-toggle-button" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? "Close Chat" : "Chat with Us"}
+      </button>
+
+      {/* Chatbot Container (shown only when isOpen is true) */}
+      {isOpen && (
+        <div className="chatbot-container">
+          <h3>Travel Assistant</h3>
+          <div className="chatbox">
+            {messages.map((msg, i) => (
+              <div key={i} className={`message ${msg.sender === "You" ? "user" : "bot"}`}>
+                <div className="message-text">{msg.text}</div>
+              </div>
+            ))}
+            <div ref={chatEndRef} />
           </div>
-        ))}
-        <div ref={chatEndRef} />
-      </div>
-      <div className="input-area">
-        <input
-          type="text"
-          placeholder="Ask me anything about travel..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        />
-        <button onClick={handleSend}>Send</button>
-      </div>
-    </div>
+          <div className="input-area">
+            <input
+              type="text"
+              placeholder="Ask me anything about travel..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            />
+            <button onClick={handleSend}>Send</button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
 export default Chatbot;
+
