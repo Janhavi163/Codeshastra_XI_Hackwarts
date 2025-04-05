@@ -5,6 +5,8 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
 const tripRoutes = require('./routes/tripRoutes');
+const submissionRoutes = require('./routes/submissionRoutes');
+
 
 const app = express();
 app.use(express.json());
@@ -21,6 +23,8 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .then(() => console.log("✅ MongoDB Connected..."))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
+
+  
 // ✅ API Routes
 app.use("/", authRoutes);
 
@@ -29,6 +33,12 @@ app.get("/sample", (req, res) => {
 });
 
 app.use('/api/trip', tripRoutes);
+
+app.use('/api', submissionRoutes);
+
+const placesRoutes = require('./routes/placesRoutes');
+app.use('/api', placesRoutes);
+
 
 // ✅ Start Server
 const PORT = process.env.PORT || 5000;
