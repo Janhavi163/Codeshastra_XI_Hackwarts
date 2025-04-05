@@ -5,12 +5,14 @@ import Page2 from './Page2';
 import Destinations from './Destinations';
 import ReviewComponent from './ReviewComponent';
 import Chatbot from '../components/Chatbot';
+import ItineraryMap from '../components/ItineraryMap';
+import { User } from 'lucide-react';
+
 
 function HomePage() {
   const navigate = useNavigate();
   // Multi-step state: 1 for first form, 2 for additional options, 3 for showing tourist places
   const [formStep, setFormStep] = useState(1);
-
   // Form states
   const [from, setFrom] = useState('');
   const [destination, setDestination] = useState('');
@@ -23,6 +25,7 @@ function HomePage() {
 
   // Popup state
   const [showPopup, setShowPopup] = useState(false);
+  const [map, setMap] = useState(false);
 
   // Additional options
   const [numPeople, setNumPeople] = useState('');
@@ -111,6 +114,7 @@ function HomePage() {
   // 2. Use the retrieved coordinates to call your server-side proxy and fetch nearby places.
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
+    setMap(true);
     try {
       const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
         destination
@@ -165,6 +169,11 @@ function HomePage() {
 
   return (
     <>
+     <div className="flex justify-end p-4">
+      <button onClick={() => navigate('/my-travel-wall')}>
+        <User size={32} />
+      </button>
+    </div>
       <div className="container-fluid p-0">
         <div
           className="row"
@@ -371,6 +380,9 @@ function HomePage() {
       <Destinations />
       <ReviewComponent />
       <Chatbot />
+      {map && (
+        <ItineraryMap />
+      )}
     </>
   );
 }

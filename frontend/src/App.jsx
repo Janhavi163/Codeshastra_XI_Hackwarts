@@ -2,23 +2,26 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Register from "./components/Register";
 import Login from "./components/Login";
 import HomePage from "./pages/Home";
-import Chat from "./pages/Chat"; // ✅ Add this
+import TravelWall from "./components/my-travel-wall"; // ✅ Import the component
+import Chat from './pages/Chat';
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        {/* Redirect "/" to "/register" */}
         <Route path="/" element={<Navigate to="/register" />} />
+
+        {/* Auth routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
-        {/* ✅ HomePage route */}
+        
+        {/* Main app pages */}
         <Route path="/Home" element={<HomePage />} />
-
-        {/* ✅ Chat route - make sure this is NOT nested */}
         <Route path="/team-chat" element={<Chat />} />
+        <Route path="/my-travel-wall" element={<TravelWall />} /> {/* ✅ New route */}
 
-        {/* 404 Route */}
+        {/* Catch-all for undefined routes */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </Router>
@@ -26,5 +29,6 @@ const App = () => {
 };
 
 export default App;
+
 
 
