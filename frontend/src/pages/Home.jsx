@@ -479,7 +479,7 @@ function HomePage() {
         style={{
           position: "fixed",
           bottom: "20px",
-          right: "20px",
+          right: "180px",
           padding: "12px 20px",
           backgroundColor: "#28a745",
           color: "white",

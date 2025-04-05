@@ -94,19 +94,6 @@ function Page2() {
           <button className="btn btn-primary">Start Planning</button>
         </div>
       </div>
-
-      {/* Sticky Bottom Bar */}
-      <div
-        className="position-fixed bottom-0 w-100 bg-light border-top py-2"
-        style={{ zIndex: 999 }}
-      >
-        <div className="container d-flex justify-content-between align-items-center">
-          <span className="me-3">
-            Want to personalize your own experience?
-          </span>
-          <button className="btn btn-success">Start Planning</button>
-        </div>
-      </div>
     </div>
   );
 }

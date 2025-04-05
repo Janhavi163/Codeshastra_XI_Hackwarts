@@ -36,7 +36,7 @@ const Chatbot = () => {
   return (
     <>
       {/* Toggle Button */}
-      <button className="chat-toggle-button" onClick={() => setIsOpen(!isOpen)}>
+      <button className="chat-toggle-button" style={{borderRadius : "8px"}} onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "Close Chat" : "Chat with Us"}
       </button>
 
