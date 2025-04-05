@@ -3,6 +3,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
+import HomePage from "./pages/Home";
 
 const App = () => {
   return (
@@ -16,6 +17,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/user-dashboard" element={<UserDashboard />} />
+        <Route path ="/Home" element={<HomePage />}>
+        </Route>
 
         {/* Catch-all for undefined routes (optional) */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
