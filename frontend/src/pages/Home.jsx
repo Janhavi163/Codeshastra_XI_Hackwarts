@@ -169,18 +169,13 @@ function HomePage() {
 
   return (
     <>
-     <div className="flex justify-end p-4">
-      <button onClick={() => navigate('/my-travel-wall')}>
-        <User size={32} />
-      </button>
-    </div>
       <div className="container-fluid p-0">
         <div
-          className="row"
+          className="row mt-5"
           style={{
-            height: '100vh',
+            height: '80vh',
             backgroundImage:
-              'url("https://static3.bigstockphoto.com/5/7/2/small2/275585488.jpg")',
+              'url("https://cdn.pixabay.com/photo/2021/08/14/04/15/mountains-6544522_640.jpg")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -196,9 +191,6 @@ function HomePage() {
             <p className="lead">
               Bid farewell to generic holiday packages. Get your AI-personalized itineraries.
             </p>
-            <button className="btn btn-warning btn-lg" onClick={togglePopup}>
-              Plan Itinerary For Free
-            </button>
           </div>
           {/* Right Side - Visible Form on larger screens */}
           <div className="col-md-6 d-none d-md-flex flex-column justify-content-center p-5">
@@ -309,22 +301,6 @@ function HomePage() {
                     />
                     <div>Selected Budget: {budget}</div>
                   </div>
-                  <div className="mb-3">
-                    <label htmlFor="mode" className="form-label">Mode of Transportation</label>
-                    <select
-                      className="form-select"
-                      id="mode"
-                      value={mode}
-                      onChange={(e) => setMode(e.target.value)}
-                    >
-                      <option value="">Select mode of transportation</option>
-                      <option value="Car">Car</option>
-                      <option value="Bus">Bus</option>
-                      <option value="Train">Train</option>
-                      <option value="Airplane">Airplane</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
                   <div className="d-flex justify-content-between">
                     <button className="btn btn-secondary" onClick={handleBack}>
                       Back
@@ -357,14 +333,13 @@ function HomePage() {
 
               )}
         {/* Floating Button for Chat */}
-      <button
-        className="chat-toggle-button"
+      <button 
+        className=" btn btn-primary"
         style={{
           position: "fixed",
           bottom: "20px",
-          right: "180px",
+          right: "230px",
           padding: "12px 20px",
-          backgroundColor: "#28a745",
           color: "white",
           border: "none",
           borderRadius: "8px",

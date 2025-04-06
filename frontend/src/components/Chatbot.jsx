@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { jsPDF } from "jspdf"; // Import jsPDF
 import "./Chatbot.css";
 
 const Chatbot = () => {
@@ -33,16 +34,73 @@ const Chatbot = () => {
     }
   };
 
+  // Function to generate and download the PDF
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.setFont("helvetica", "normal");
+    
+    // Title for the PDF
+    doc.text("Travel Itinerary", 20, 20);
+
+    // Add each message from the conversation to the PDF
+    let yOffset = 30;
+    messages.forEach((msg) => {
+      doc.text(`${msg.sender}: ${msg.text}`, 20, yOffset);
+      yOffset += 10; // Line spacing
+    });
+
+    // Save the PDF
+    doc.save("itinerary.pdf");
+  };
+
   return (
     <>
       {/* Toggle Button */}
-      <button className="chat-toggle-button" style={{borderRadius : "8px"}} onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "Close Chat" : "Chat with Us"}
+      <button
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "30px",
+          padding: "12px 20px",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          zIndex: 1000,
+        }}
+        className="chat-toggle-button"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isOpen ? "Close Chat" : "Itinerary Creation"}
       </button>
+
+      {/* Chatbot Overlay (Blur the background) */}
+      {isOpen && <div className="chatbot-overlay" />}
 
       {/* Chatbot Container (shown only when isOpen is true) */}
       {isOpen && (
         <div className="chatbot-container">
+          {/* Close Button */}
+          <button
+            className="close-chatbot-button"
+            onClick={() => setIsOpen(false)} // Close the chatbot when clicked
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              padding: "10px",
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              borderRadius: "50%",
+              cursor: "pointer",
+              zIndex: 2,
+            }}
+          >
+            X
+          </button>
+
           <h3>Travel Assistant</h3>
           <div className="chatbox">
             {messages.map((msg, i) => (
@@ -62,6 +120,11 @@ const Chatbot = () => {
             />
             <button onClick={handleSend}>Send</button>
           </div>
+
+          {/* Button to download the conversation as a PDF */}
+          <button onClick={downloadPDF} className="download-pdf-button">
+            Download Itinerary as PDF
+          </button>
         </div>
       )}
     </>
@@ -69,4 +132,3 @@ const Chatbot = () => {
 };
 
 export default Chatbot;
-

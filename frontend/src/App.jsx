@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import HomePage from "./pages/Home";
 import TravelWall from "./components/my-travel-wall"; // ✅ Import the component
 import Chat from './pages/Chat';
+import AIItineraryPlanner from "./components/AIItineraryPlanner";
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
         <Route path="/Home" element={<HomePage />} />
         <Route path="/team-chat" element={<Chat />} />
         <Route path="/my-travel-wall" element={<TravelWall />} /> {/* ✅ New route */}
-
+        <Route path="/itinerary" element={<AIItineraryPlanner />} /> {/* new route */}
         {/* Catch-all for undefined routes */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>

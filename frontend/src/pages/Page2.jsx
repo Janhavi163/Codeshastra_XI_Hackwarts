@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Page2() {
   return (
-    <div>
+    <div className='mt-5'>
       {/* Main Container */}
       <div className="container py-5">
         {/* Heading */}
@@ -86,12 +86,6 @@ function Page2() {
               No hidden charges or bundling. Pay for what you get.
             </p>
           </div>
-        </div>
-
-        {/* Call to Action Row */}
-        <div className="text-center mt-4">
-          <button className="btn btn-warning me-3">Plan Itinerary For Free</button>
-          <button className="btn btn-primary">Start Planning</button>
         </div>
       </div>
     </div>
