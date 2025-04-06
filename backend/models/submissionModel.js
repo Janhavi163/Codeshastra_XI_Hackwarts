@@ -6,7 +6,6 @@ const submissionSchema = new mongoose.Schema(
     destination: { type: String, required: true },
     numPeople: { type: Number, required: true },
     budget: { type: Number, required: true },
-    mode: { type: String, required: true }
   },
   {
     timestamps: true
