@@ -38,15 +38,53 @@ const Chatbot = () => {
   const downloadPDF = () => {
     const doc = new jsPDF();
     doc.setFont("helvetica", "normal");
-    
+
     // Title for the PDF
     doc.text("Travel Itinerary", 20, 20);
 
+    // Define margins and line height
+    const marginLeft = 20;
+    const marginTop = 30;
+    const maxWidth = 180;
+    const lineHeight = 10;
+
+    // Initial Y position
+    let yOffset = marginTop;
+
+    // Function to add text with auto wrapping
+    const addText = (text) => {
+      const textWidth = doc.getStringUnitWidth(text) * doc.getFontSize() / doc.internal.scaleFactor;
+      let xPos = marginLeft;
+
+      // Check if text fits in the page width, and wrap it if necessary
+      if (textWidth > maxWidth) {
+        const words = text.split(' ');
+        let line = '';
+        for (let i = 0; i < words.length; i++) {
+          const testLine = line + words[i] + ' ';
+          const testWidth = doc.getStringUnitWidth(testLine) * doc.getFontSize() / doc.internal.scaleFactor;
+          if (testWidth > maxWidth) {
+            doc.text(line, xPos, yOffset);
+            line = words[i] + ' ';
+            yOffset += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        doc.text(line, xPos, yOffset);
+      } else {
+        doc.text(text, xPos, yOffset);
+      }
+      yOffset += lineHeight;
+    };
+
     // Add each message from the conversation to the PDF
-    let yOffset = 30;
     messages.forEach((msg) => {
-      doc.text(`${msg.sender}: ${msg.text}`, 20, yOffset);
-      yOffset += 10; // Line spacing
+      addText(`${msg.sender}: ${msg.text}`);
+      if (yOffset > 270) { // Check if the text is overflowing and create a new page if necessary
+        doc.addPage();
+        yOffset = marginTop;
+      }
     });
 
     // Save the PDF
