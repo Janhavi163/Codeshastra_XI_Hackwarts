@@ -57,7 +57,7 @@ const Chat = () => {
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
-      <h2 className="text-xl font-bold mb-4">Team Chat: {teamCode}</h2>
+      <h2 className="text-xl font-bold mb-4">Team Code: {teamCode}</h2>
       <div className="border h-64 overflow-y-scroll p-2 bg-gray-100 mb-2">
         {messages.map((msg, idx) => (
           <div key={idx}><strong>{msg.sender}:</strong> {msg.text}</div>

@@ -1,8 +1,329 @@
 
-//option 1
+
+
+// import React, { useState, useRef } from "react";
+// import PrintButton from "./PrintButton";
+
+// const MAX_IMAGES = 8;
+
+// const MyTravelWall = () => {
+//   const [images, setImages] = useState([]);
+//   const [taglines, setTaglines] = useState([]);
+//   const [collageTagline, setCollageTagline] = useState("");
+//   const [links, setLinks] = useState([]);
+//   const collageRef = useRef(null);
+
+//   const handleImageUpload = (e) => {
+//     const files = Array.from(e.target.files);
+//     if (files.length + images.length > MAX_IMAGES) {
+//       return alert("You can only upload up to 8 images.");
+//     }
+
+//     const previews = files.map((file) => URL.createObjectURL(file));
+//     setImages((prev) => [...prev, ...previews]);
+//     setTaglines((prev) => [...prev, ...files.map(() => "")]);
+//   };
+
+//   const handleTaglineChange = (index, value) => {
+//     const updatedTaglines = [...taglines];
+//     updatedTaglines[index] = value;
+//     setTaglines(updatedTaglines);
+//   };
+
+//   const generateLink = (id) => {
+//     const simulatedLink = `${window.location.origin}/view/${id}`;
+//     setLinks((prev) => [...prev, { id, link: simulatedLink }]);
+//   };
+
+//   const getLinkById = (id) => links.find((l) => l.id === id)?.link;
+
+//   return (
+//     <div className="container-fluid py-5" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D)', backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh' }}>
+//       <div className="container bg-white bg-opacity-75 p-5 rounded shadow">
+//         <h1 className="text-center mb-4 display-5 fw-bold">My Travel Wall</h1>
+
+//         <div className="mb-4">
+//           <input
+//             type="file"
+//             accept="image/*"
+//             multiple
+//             onChange={handleImageUpload}
+//             className="form-control"
+//           />
+//         </div>
+
+//         {images.length <= 5 ? (
+//           images.map((img, i) => {
+//             const id = `single-${i}`;
+//             return (
+//               <div key={id} className="card mb-4 p-3 shadow-sm">
+//                 <img
+//                   src={img}
+//                   alt={`Travel ${i}`}
+//                   className="card-img-top rounded"
+//                   style={{ objectFit: "cover", height: "300px" }}
+//                 />
+//                 <div className="card-body">
+//                   <input
+//                     type="text"
+//                     placeholder="Enter a tagline"
+//                     value={taglines[i]}
+//                     onChange={(e) => handleTaglineChange(i, e.target.value)}
+//                     className="form-control mb-3"
+//                   />
+//                   <div className="d-flex gap-3">
+//                     <PrintButton
+//                       image={img}
+//                       tagline={taglines[i]}
+//                     />
+//                     <button
+//                       className="btn btn-success"
+//                       onClick={() => generateLink(id)}
+//                     >
+//                       Generate Link
+//                     </button>
+//                   </div>
+//                   {getLinkById(id) && (
+//                     <div className="mt-2 text-primary">
+//                       Shareable link:{" "}
+//                       <a href={getLinkById(id)} target="_blank" rel="noreferrer">
+//                         {getLinkById(id)}
+//                       </a>
+//                     </div>
+//                   )}
+//                 </div>
+//               </div>
+//             );
+//           })
+//         ) : (
+//           <div ref={collageRef} className="card p-4 shadow-lg">
+//             <div className="row row-cols-1 row-cols-md-3 g-4">
+//               {images.map((img, i) => (
+//                 <div key={i} className="col text-center">
+//                   <img
+//                     src={img}
+//                     alt={`Travel ${i}`}
+//                     className="img-fluid rounded"
+//                     style={{ height: "200px", objectFit: "cover" }}
+//                   />
+//                   <p className="mt-2 small text-muted">{taglines[i]}</p>
+//                 </div>
+//               ))}
+//             </div>
+//             <div className="mt-4">
+//               <input
+//                 type="text"
+//                 placeholder="Enter a tagline for collage"
+//                 value={collageTagline}
+//                 onChange={(e) => setCollageTagline(e.target.value)}
+//                 className="form-control"
+//               />
+//               <div className="text-center fw-semibold mt-3">{collageTagline}</div>
+//               <div className="d-flex gap-3 mt-3">
+//                 <PrintButton
+//                   image={images[0]} // Example: Use the first image in the collage
+//                   tagline={collageTagline}
+//                 />
+//                 <button
+//                   className="btn btn-success"
+//                   onClick={() => generateLink("collage")}
+//                 >
+//                   Generate Link
+//                 </button>
+//               </div>
+//               {getLinkById("collage") && (
+//                 <p className="mt-2 text-primary">
+//                   Shareable link:{" "}
+//                   <a
+//                     href={getLinkById("collage")}
+//                     target="_blank"
+//                     rel="noreferrer"
+//                     className="text-decoration-underline"
+//                   >
+//                     {getLinkById("collage")}
+//                   </a>
+//                 </p>
+//               )}
+//             </div>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MyTravelWall;
+
+
+// import React, { useState, useRef } from "react";
+// import PrintButton from "./PrintButton";
+
+// const MAX_IMAGES = 8;
+
+// const MyTravelWall = () => {
+//   const [images, setImages] = useState([]);
+//   const [taglines, setTaglines] = useState([]);
+//   const [collageTagline, setCollageTagline] = useState("");
+//   const [links, setLinks] = useState([]);
+//   const collageRef = useRef(null);
+
+//   const handleImageUpload = (e) => {
+//     const files = Array.from(e.target.files);
+//     if (files.length + images.length > MAX_IMAGES) {
+//       return alert("You can only upload up to 8 images.");
+//     }
+
+//     const previews = files.map((file) => URL.createObjectURL(file));
+//     setImages((prev) => [...prev, ...previews]);
+//     setTaglines((prev) => [...prev, ...files.map(() => "")]);
+//   };
+
+//   const handleTaglineChange = (index, value) => {
+//     const updatedTaglines = [...taglines];
+//     updatedTaglines[index] = value;
+//     setTaglines(updatedTaglines);
+//   };
+
+//   const generateLink = (id) => {
+//     const simulatedLink = `${window.location.origin}/view/${id}`;
+//     setLinks((prev) => [...prev, { id, link: simulatedLink }]);
+//   };
+
+//   const getLinkById = (id) => links.find((l) => l.id === id)?.link;
+
+//   return (
+//     <div
+//       className="container-fluid py-5"
+//       style={{
+//         backgroundImage:
+//           "url(https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D)",
+//         backgroundSize: "cover",
+//         backgroundPosition: "center",
+//         minHeight: "100vh",
+//       }}
+//     >
+//       <div className="container bg-white bg-opacity-75 p-5 rounded shadow">
+//         <h1 className="text-center mb-4 display-5 fw-bold">My Travel Wall</h1>
+
+//         <div className="mb-4">
+//           <input
+//             type="file"
+//             accept="image/*"
+//             multiple
+//             onChange={handleImageUpload}
+//             className="form-control"
+//           />
+//         </div>
+
+//         {images.length <= 5 ? (
+//           images.map((img, i) => {
+//             const id = `single-${i}`;
+//             return (
+//               <div key={id} className="card mb-4 p-3 shadow-sm">
+//                 <img
+//                   src={img}
+//                   alt={`Travel ${i}`}
+//                   className="card-img-top rounded"
+//                   style={{ objectFit: "cover", height: "300px" }}
+//                 />
+//                 <div className="card-body">
+//                   <input
+//                     type="text"
+//                     placeholder="Enter a tagline"
+//                     value={taglines[i]}
+//                     onChange={(e) => handleTaglineChange(i, e.target.value)}
+//                     className="form-control mb-3"
+//                   />
+//                   <div className="d-flex gap-3">
+//                     <PrintButton image={img} tagline={taglines[i]} />
+//                     <button
+//                       className="btn btn-success"
+//                       onClick={() => generateLink(id)}
+//                     >
+//                       Generate Link
+//                     </button>
+//                   </div>
+//                   {getLinkById(id) && (
+//                     <div className="mt-2 text-primary">
+//                       Shareable link:{" "}
+//                       <a
+//                         href={getLinkById(id)}
+//                         target="_blank"
+//                         rel="noreferrer"
+//                       >
+//                         {getLinkById(id)}
+//                       </a>
+//                     </div>
+//                   )}
+//                 </div>
+//               </div>
+//             );
+//           })
+//         ) : (
+//           <div ref={collageRef} className="card p-4 shadow-lg">
+//             <div className="row row-cols-1 row-cols-md-3 g-4">
+//               {images.map((img, i) => (
+//                 <div key={i} className="col text-center">
+//                   <img
+//                     src={img}
+//                     alt={`Travel ${i}`}
+//                     className="img-fluid rounded"
+//                     style={{ height: "200px", objectFit: "cover" }}
+//                   />
+//                   <p className="mt-2 small text-muted">{taglines[i]}</p>
+//                 </div>
+//               ))}
+//             </div>
+//             <div className="mt-4">
+//               <input
+//                 type="text"
+//                 placeholder="Enter a tagline for collage"
+//                 value={collageTagline}
+//                 onChange={(e) => setCollageTagline(e.target.value)}
+//                 className="form-control"
+//               />
+//               <div className="text-center fw-semibold mt-3">
+//                 {collageTagline}
+//               </div>
+//               <div className="d-flex gap-3 mt-3">
+//                 {/* Pass the entire images array and set isCollage flag to true */}
+//                 <PrintButton
+//                   images={images}
+//                   tagline={collageTagline}
+//                   isCollage={true}
+//                 />
+//                 <button
+//                   className="btn btn-success"
+//                   onClick={() => generateLink("collage")}
+//                 >
+//                   Generate Link
+//                 </button>
+//               </div>
+//               {getLinkById("collage") && (
+//                 <p className="mt-2 text-primary">
+//                   Shareable link:{" "}
+//                   <a
+//                     href={getLinkById("collage")}
+//                     target="_blank"
+//                     rel="noreferrer"
+//                     className="text-decoration-underline"
+//                   >
+//                     {getLinkById("collage")}
+//                   </a>
+//                 </p>
+//               )}
+//             </div>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MyTravelWall;
+
 import React, { useState, useRef } from "react";
-import html2canvas from "html2canvas";
-import { v4 as uuidv4 } from "uuid";
+import PrintButton from "./PrintButton";
 
 const MAX_IMAGES = 8;
 
@@ -11,8 +332,6 @@ const MyTravelWall = () => {
   const [taglines, setTaglines] = useState([]);
   const [collageTagline, setCollageTagline] = useState("");
   const [links, setLinks] = useState([]);
-  const collageRef = useRef(null);
-  const singleRefs = useRef({});
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
@@ -31,61 +350,6 @@ const MyTravelWall = () => {
     setTaglines(updatedTaglines);
   };
 
-  const printElement = async (ref) => {
-    if (!ref.current) return;
-    const canvas = await html2canvas(ref.current);
-    const imageData = canvas.toDataURL("image/png");
-    const printWindow = window.open("", "_blank");
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Print</title>
-          <style>
-            body {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              height: 100vh;
-              margin: 0;
-              background: #f0f0f0;
-              font-family: Arial, sans-serif;
-            }
-            .polaroid {
-              background: white;
-              padding: 10px;
-              border: 1px solid #ccc;
-              box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-              width: 300px;
-              text-align: center;
-              border-radius: 10px;
-            }
-            .polaroid img {
-              width: 100%;
-              border-radius: 10px;
-            }
-            .tagline {
-              margin-top: 10px;
-              font-size: 14px;
-              color: #333;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="polaroid">
-            <img src="${imageData}" />
-          </div>
-          <script>
-            window.onload = function() {
-              window.print();
-            };
-          </script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
-    printWindow.focus();
-  };
-
   const generateLink = (id) => {
     const simulatedLink = `${window.location.origin}/view/${id}`;
     setLinks((prev) => [...prev, { id, link: simulatedLink }]);
@@ -94,124 +358,132 @@ const MyTravelWall = () => {
   const getLinkById = (id) => links.find((l) => l.id === id)?.link;
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">My Travel Wall</h1>
+    <div
+      className="container-fluid py-5"
+      style={{
+        backgroundImage:
+          "url(https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <div className="container bg-white bg-opacity-75 p-5 rounded shadow">
+        <h1 className="text-center mb-4 display-5 fw-bold">My Travel Wall</h1>
 
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={handleImageUpload}
-        className="mb-4"
-      />
+        <div className="mb-4">
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageUpload}
+            className="form-control"
+          />
+        </div>
 
-      {images.length <= 5 ? (
-        images.map((img, i) => {
-          const id = `single-${i}`;
-          return (
-            <div
-              key={id}
-              ref={(el) => (singleRefs.current[id] = el)}
-              className="border p-4 rounded-xl shadow-md space-y-2"
-            >
-              <img
-                src={img}
-                alt={`Travel ${i}`}
-                className="w-60 h-60 object-cover rounded-xl mx-auto"
-              />
+        {images.length <= 5 ? (
+          images.map((img, i) => {
+            const id = `single-${i}`;
+            return (
+              <div key={id} className="card mb-4 p-3 shadow-sm">
+                <img
+                  src={img}
+                  alt={`Travel ${i}`}
+                  className="card-img-top rounded"
+                  style={{ objectFit: "cover", height: "300px" }}
+                />
+                <div className="card-body">
+                  <input
+                    type="text"
+                    placeholder="Enter a tagline"
+                    value={taglines[i]}
+                    onChange={(e) => handleTaglineChange(i, e.target.value)}
+                    className="form-control mb-3"
+                  />
+                  <div className="d-flex gap-3">
+                    <PrintButton image={img} tagline={taglines[i]} />
+                    <button
+                      className="btn btn-success"
+                      onClick={() => generateLink(id)}
+                    >
+                      Generate Link
+                    </button>
+                  </div>
+                  {getLinkById(id) && (
+                    <div className="mt-2 text-primary">
+                      Shareable link:{" "}
+                      <a
+                        href={getLinkById(id)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {getLinkById(id)}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="card p-4 shadow-lg">
+            <div className="row row-cols-1 row-cols-md-3 g-4">
+              {images.map((img, i) => (
+                <div key={i} className="col text-center">
+                  <img
+                    src={img}
+                    alt={`Travel ${i}`}
+                    className="img-fluid rounded"
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+                  <p className="mt-2 small text-muted">{taglines[i]}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4">
               <input
                 type="text"
-                placeholder="Enter a tagline"
-                value={taglines[i]}
-                onChange={(e) => handleTaglineChange(i, e.target.value)}
-                className="w-full p-2 border rounded"
+                placeholder="Enter a tagline for collage"
+                value={collageTagline}
+                onChange={(e) => setCollageTagline(e.target.value)}
+                className="form-control"
               />
-              <div className="flex gap-4 mt-2">
+              <div className="text-center fw-semibold mt-3">
+                {collageTagline}
+              </div>
+              <div className="d-flex gap-3 mt-3">
+                <PrintButton
+                  images={images}
+                  tagline={collageTagline}
+                  isCollage={true}
+                />
                 <button
-                  className="bg-blue-500 text-white px-4 py-1 rounded"
-                  onClick={() => printElement({ current: singleRefs.current[id] })}
-                >
-                  Print
-                </button>
-                <button
-                  className="bg-green-500 text-white px-4 py-1 rounded"
-                  onClick={() => generateLink(id)}
+                  className="btn btn-success"
+                  onClick={() => generateLink("collage")}
                 >
                   Generate Link
                 </button>
               </div>
-              {getLinkById(id) && (
-                <p className="text-sm text-blue-600 mt-1">
+              {getLinkById("collage") && (
+                <p className="mt-2 text-primary">
                   Shareable link:{" "}
                   <a
-                    href={getLinkById(id)}
+                    href={getLinkById("collage")}
                     target="_blank"
                     rel="noreferrer"
-                    className="underline"
+                    className="text-decoration-underline"
                   >
-                    {getLinkById(id)}
+                    {getLinkById("collage")}
                   </a>
                 </p>
               )}
             </div>
-          );
-        })
-      ) : (
-        <div
-          ref={collageRef}
-          className="border p-6 rounded-xl shadow-lg bg-gradient-to-br from-yellow-100 to-pink-100"
-        >
-          <div className="grid grid-cols-3 gap-4">
-            {images.map((img, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <img
-                  src={img}
-                  alt={`Travel ${i}`}
-                  className="w-40 h-40 object-cover rounded-lg"
-                />
-                <p className="text-sm mt-1 text-gray-700">{taglines[i]}</p>
-              </div>
-            ))}
           </div>
-          <input
-            type="text"
-            placeholder="Enter a tagline for collage"
-            value={collageTagline}
-            onChange={(e) => setCollageTagline(e.target.value)}
-            className="w-full mt-4 p-2 border rounded"
-          />
-          <div className="text-center mt-2 text-lg font-semibold">{collageTagline}</div>
-          <div className="flex gap-4 mt-4">
-            <button
-              className="bg-blue-500 text-white px-4 py-1 rounded"
-              onClick={() => printElement(collageRef)}
-            >
-              Print Collage
-            </button>
-            <button
-              className="bg-green-500 text-white px-4 py-1 rounded"
-              onClick={() => generateLink("collage")}
-            >
-              Generate Link
-            </button>
-          </div>
-          {getLinkById("collage") && (
-            <p className="text-sm text-blue-600 mt-2">
-              Shareable link:{" "}
-              <a
-                href={getLinkById("collage")}
-                target="_blank"
-                rel="noreferrer"
-                className="underline"
-              >
-                {getLinkById("collage")}
-              </a>
-            </p>
-          )}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
 
 export default MyTravelWall;
+
